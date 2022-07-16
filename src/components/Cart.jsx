@@ -1,18 +1,48 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { BsArrowLeft } from "react-icons/bs";
+import {
+  removeFromCart,
+  decreaseItemsNumber,
+  increaseItemNumber,
+  removeAll,
+  totalAmount,
+} from "../features/cartSlice";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+
+  const handleRemoveCart = (item) => {
+    dispatch(removeFromCart(item));
+  };
+  const decreaseItemQuantity = (item) => {
+    dispatch(decreaseItemsNumber(item));
+  };
+  const increaseItemQuantity = (item) => {
+    dispatch(increaseItemNumber(item));
+  };
+  const removeAllItems = (item) => {
+    dispatch(removeAll(item));
+  };
+  useEffect(() => {
+    dispatch(totalAmount());
+  }, [cart, dispatch]);
   return (
     <div>
       <div className="text-4xl flex justify-center py-3">Shopping Cart</div>
       {cart.cartItems.length === 0 ? (
-        <div>
-          <div>Your Cart is currently Empty.</div>
-          <Link to="/">
-            <div>Start Shopping</div>
-          </Link>
+        <div className="flex justify-center text-center pt-12 text-xl">
+          <div>
+            <div>Your Cart is currently Empty.</div>
+            <Link to="/">
+              <div className="flex justify-center items-center text-gray-400">
+                <BsArrowLeft className="mr-2" />
+                Start Shopping
+              </div>
+            </Link>
+          </div>
         </div>
       ) : (
         <div className="">
@@ -39,7 +69,10 @@ const Cart = () => {
                         <div className="text-md">
                           {item.screen}-inch display
                         </div>
-                        <button className="text-sm text-gray-600 mt-2">
+                        <button
+                          onClick={() => handleRemoveCart(item)}
+                          className="text-sm text-gray-600 mt-2"
+                        >
                           Remove
                         </button>
                       </div>
@@ -47,13 +80,19 @@ const Cart = () => {
                     <div className="flex items-center">Rs. {item.price}</div>
 
                     <div className=" place-self-center">
-                      <div className="border flex space-x-6 px-5">
-                        <button>-</button>
-                        <p>2</p>
-                        <button>+</button>
+                      <div className="border flex justify-center items-center space-x-6 px-5">
+                        <button onClick={() => decreaseItemQuantity(item)}>
+                          <p className="text-2xl">-</p>
+                        </button>
+                        <p>{item.cartQuantity}</p>
+                        <button onClick={() => increaseItemQuantity(item)}>
+                          <p className="text-2xl">+</p>
+                        </button>
                       </div>
                     </div>
-                    <div className="flex items-center">Rs. {item.price}</div>
+                    <div className="flex items-center">
+                      Rs. {item.cartQuantity * item.price}
+                    </div>
                   </div>
                 );
               })}
@@ -61,14 +100,17 @@ const Cart = () => {
           </div>
           <div className="flex justify-between px-28 py-8">
             <div>
-              <button className="border rounded-md px-8 py-1">
+              <button
+                onClick={() => removeAllItems()}
+                className="border rounded-md px-8 py-1"
+              >
                 Clear Cart
               </button>
             </div>
             <div className="space-y-3">
               <div className="flex justify-between">
                 <div>SubTotal</div>
-                <div>Rs. 0</div>
+                <div>Rs. {cart.cartTotalAmount}</div>
               </div>
               <div className="text-xs text-gray-500">
                 Taxes and shipping calculated at checkout

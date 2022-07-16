@@ -14,7 +14,7 @@ const Home = () => {
 
   const handleAddToCart = (item) => {
     dispatch(addToCart(item));
-    navigate.push("/cart");
+    navigate("/cart");
   };
 
   useEffect(() => {

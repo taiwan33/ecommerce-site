@@ -1,8 +1,10 @@
 import React from "react";
 import { BsBagCheck } from "react-icons/bs";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
+  const { cartTotalQuantity } = useSelector((state) => state.cart);
   return (
     <div className="flex justify-between px-12 py-4 text-white bg-gray-900">
       <Link to="/">
@@ -15,7 +17,7 @@ const Navbar = () => {
           </div>
         </Link>
         <div className="text-black bg-yellow-400 rounded-full p-3 relative">
-          <p className="text-lg absolute left-2 top-0">3</p>
+          <p className="text-lg absolute left-2 top-0">{cartTotalQuantity}</p>
         </div>
       </div>
     </div>
