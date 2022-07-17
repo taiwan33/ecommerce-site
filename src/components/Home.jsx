@@ -51,11 +51,7 @@ const Home = () => {
           );
         })}
       </div>
-      <MessengerCustomerChat
-        pageId="<PAGE_ID>"
-        appId="<APP_ID>"
-        htmlRef="<REF_STRING>"
-      />
+      <MessengerCustomerChat pageId="107755762011189" appId="459198688985598" />
       ,
     </div>
   );
