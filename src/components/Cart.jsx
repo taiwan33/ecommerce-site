@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { BsArrowLeft } from "react-icons/bs";
@@ -47,7 +47,7 @@ const Cart = () => {
       ) : (
         <div className="">
           <div>
-            <div className="flex justify-around items-center text-left">
+            <div className=" grid grid-cols-4 place-items-center">
               <div>PRODUCT</div>
               <div>PRICE</div>
               <div>QUANTITY</div>
@@ -58,7 +58,7 @@ const Cart = () => {
                 return (
                   <div
                     key={i}
-                    className="flex justify-around text-left border-y py-5 mt-3"
+                    className="grid grid-cols-4 place-items-center border-y py-5 mt-3"
                   >
                     <div className="flex">
                       <div>
@@ -80,7 +80,7 @@ const Cart = () => {
                     <div className="flex items-center">Rs. {item.price}</div>
 
                     <div className=" place-self-center">
-                      <div className="border flex justify-center items-center space-x-6 px-5">
+                      <div className="border flex justify-center items-center space-x-6 px-2 md:px-5">
                         <button onClick={() => decreaseItemQuantity(item)}>
                           <p className="text-2xl">-</p>
                         </button>
@@ -118,7 +118,12 @@ const Cart = () => {
               <button className="bg-blue-600 w-full text-white rounded-md py-2 text-xs">
                 CheckOut
               </button>
-              <div className="text-sm text-gray-400">Continue Shopping</div>
+              <Link to="/">
+                <div className="flex items-center justify-center text-sm text-gray-400">
+                  <BsArrowLeft />
+                  <p className="pl-3">Continue Shopping</p>
+                </div>
+              </Link>
             </div>
           </div>
         </div>

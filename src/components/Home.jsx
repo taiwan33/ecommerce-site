@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../features/cartSlice";
 import { db } from "../firebaseConfig";
 import { useNavigate } from "react-router-dom";
+import MessengerCustomerChat from "react-messenger-customer-chat";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -27,14 +28,14 @@ const Home = () => {
   // console.log(db);
   return (
     <div className="py-4">
-      <div className="flex justify-center pb-[2%] text-4xl ">New Arrivals</div>
-      <div className="flex justify-around">
+      <div className="flex justify-center text-4xl ">New Arrivals</div>
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 place-items-center">
         {items.map((item, i) => {
           return (
-            <div key={i} className="text-center space-y-4">
+            <div key={i} className="text-center space-y-4 mt-[8%]">
               <div className="text-xl">{item.name}</div>
-              <div>
-                <img className="h-[300px] w-auto" src={item.imageurl} alt="" />
+              <div className="">
+                <img className="h-[300px] w-auto " src={item.imageurl} alt="" />
               </div>
               <div className="flex justify-around text-md">
                 <div className="">{item.screen}-inch display</div>
@@ -50,6 +51,12 @@ const Home = () => {
           );
         })}
       </div>
+      <MessengerCustomerChat
+        pageId="<PAGE_ID>"
+        appId="<APP_ID>"
+        htmlRef="<REF_STRING>"
+      />
+      ,
     </div>
   );
 };

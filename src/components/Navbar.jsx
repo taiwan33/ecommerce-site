@@ -16,8 +16,8 @@ const Navbar = () => {
             <BsBagCheck className="h-10 w-12 shrink-0" />
           </div>
         </Link>
-        <div className="text-black bg-yellow-400 rounded-full p-3 relative">
-          <p className="text-lg absolute left-2 top-0">{cartTotalQuantity}</p>
+        <div className="text-black p-3 bg-yellow-400 rounded-full relative">
+          <p className="text-lg absolute left-2 -top-1">{cartTotalQuantity}</p>
         </div>
       </div>
     </div>
